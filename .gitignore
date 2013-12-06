@@ -34,3 +34,13 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# Virtualenv
+.venv
+
+# Test scripts
+test.sh
+
+# Vagrant
+.vagrant
+Vagrantfile
