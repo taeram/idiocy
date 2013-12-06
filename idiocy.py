@@ -58,7 +58,7 @@ def shorten():
             db.session.add(row)
             db.session.commit()
 
-        return url_for('bounce', code=row.code, _external=True)
+        return strip_www(url_for('bounce', code=row.code, _external=True))
 
 @app.route('/<code>', methods=['GET'])
 def bounce(code):
@@ -85,6 +85,18 @@ def list():
                      all()
 
     return render_template('list.html', urls=urls)
+
+# Filters
+@app.template_filter('strip_www')
+def strip_www(url):
+    if app.config['STRIP_WWW_PREFIX']:
+        url = url.replace('www.', '')
+
+    return url
+
+@app.template_filter('strip_scheme')
+def strip_scheme(url):
+    return re.sub('^.*://', '', url)
 
 if __name__ == '__main__':
     app.run('0.0.0.0')

@@ -4,6 +4,7 @@ class Config(object):
     DEBUG = False
     TESTING = False
     SQLALCHEMY_DATABASE_URI = getenv('DATABASE_URL')
+    STRIP_WWW_PREFIX = True
 
 class ProductionConfig(Config):
     DEBUG = False

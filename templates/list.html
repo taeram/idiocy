@@ -22,7 +22,7 @@
                         {{ url.created.strftime('%B %d, %Y') }}
                     </td>
                     <td>
-                        <a href="{{ url_for('bounce', code=url.code) }}">{{ url_for('bounce', code=url.code, _external=True ).replace('http://', '') }}</a>
+                        <a href="{{ url_for('bounce', code=url.code) }}">{{ url_for('bounce', code=url.code, _external=True )|strip_www|strip_scheme }}</a>
                     </td>
                     <td>
                         {{ url.clicks }}

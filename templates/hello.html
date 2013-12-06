@@ -14,12 +14,12 @@
     <div class="container">
         <p>
             To shorten a URL, just POST it to {{ url_for('shorten', _external=True ) }}:
-            <pre>curl -X POST {{ url_for('shorten', _external=True ) }} -F "url=http://example.com/kitty.gif"</pre>
+            <pre>curl -X POST {{ url_for('shorten', _external=True )|strip_www }} -F "url=http://example.com/kitty.gif"</pre>
         </p>
 
         <p>
             The body of the response will contain the shortened URL:
-            <pre>{{ url_for('bounce', code="oT0Dh", _external=True ) }}</pre>
+            <pre>{{ url_for('bounce', code="oT0Dh", _external=True )|strip_www }}</pre>
         </p>
 
         <p>
@@ -27,7 +27,7 @@
             has the correct file extension. To enable this with a shortened link,
             simply add a file extension to the shortened URL:
 
-            <pre>{{ url_for('bounce', code="oT0Dh.gif", _external=True ) }}</pre>
+            <pre>{{ url_for('bounce', code="oT0Dh.gif", _external=True )|strip_www }}</pre>
         </p>
     </div>
 
