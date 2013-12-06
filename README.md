@@ -33,6 +33,9 @@ Setup
     # Install the pip requirements
     pip install -r requirements.txt
 
+    # Set an "API key" for authorization
+    heroku config:set API_KEY="secret_api_key"
+
     # Start the application
     python app.py
 ```
@@ -40,10 +43,10 @@ Setup
 Usage
 =====
 
-To shorten a URL, POST it to http://your-domain.com:
+To shorten a URL, POST it to http://your-domain.com using your API key:
 
 ```bash
-curl -X POST http://your-domain.com -F "url=http://example.com/kitty.gif"
+curl -X POST http://your-domain.com -H "Authorization: secret_api_key" -F "url=http://example.com/kitty.gif"
 ```
 
 The body of the response will contain the shortened URL:

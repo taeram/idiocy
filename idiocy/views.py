@@ -11,6 +11,7 @@ from idiocy.helpers import generate_code, \
                            is_valid_url
 from idiocy.database import db, \
                             Urls
+from idiocy.filters import strip_www
 
 @app.route('/favicon.ico')
 def favicon():
@@ -21,6 +22,10 @@ def shorten():
     if request.method == 'GET':
         return render_template('hello.html')
     else:
+        api_key = request.headers['Authorization'].strip()
+        if api_key != app.config['API_KEY']:
+            abort(403)
+
         url = request.form['url'].strip()
 
         if not is_valid_url(url):
