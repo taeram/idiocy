@@ -12,7 +12,6 @@ from idiocy.helpers import generate_code, \
 from idiocy.database import db, \
                             Urls
 
-# Routes
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.png', mimetype='image/png')
@@ -64,15 +63,3 @@ def list():
                      all()
 
     return render_template('list.html', urls=urls)
-
-# Filters
-@app.template_filter('strip_www')
-def strip_www(url):
-    if app.config['STRIP_WWW_PREFIX']:
-        url = url.replace('www.', '')
-
-    return url
-
-@app.template_filter('strip_scheme')
-def strip_scheme(url):
-    return re.sub('^.*://', '', url)
