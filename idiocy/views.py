@@ -1,37 +1,16 @@
+from idiocy.app import app
 import os
-from flask import Flask, request, url_for, abort, redirect, send_from_directory, render_template
-from flask.ext.sqlalchemy import SQLAlchemy
-from helpers import is_valid_url, generate_code
 import re
-from datetime import datetime
-
-# App
-app = Flask(__name__)
-if os.getenv('FLASK_ENV') is 'production':
-    app.config.from_object('config.ProductionConfig')
-else:
-    app.config.from_object('config.DevelopmentConfig')
-
-# Database
-db = SQLAlchemy(app)
-
-class Urls(db.Model):
-    __tablename__ = 'urls'
-
-    id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.Text, unique=True)
-    code = db.Column(db.Text, unique=True)
-    clicks = db.Column(db.Integer, default=0)
-    created = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
-
-    def __init__(self, url, code):
-        self.url = url
-        self.code = code
-
-    def __repr__(self):
-        return "<Url ('%r', '%r')>" % (self.url, self.code)
-
-db.create_all()
+from flask import abort, \
+                  redirect, \
+                  render_template, \
+                  request, \
+                  send_from_directory, \
+                  url_for
+from idiocy.helpers import generate_code, \
+                           is_valid_url
+from idiocy.database import db, \
+                            Urls
 
 # Routes
 @app.route('/favicon.ico')
@@ -97,6 +76,3 @@ def strip_www(url):
 @app.template_filter('strip_scheme')
 def strip_scheme(url):
     return re.sub('^.*://', '', url)
-
-if __name__ == '__main__':
-    app.run('0.0.0.0')
