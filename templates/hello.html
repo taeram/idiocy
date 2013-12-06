@@ -14,7 +14,7 @@
     <div class="container">
         <p>
             To shorten a URL, just POST it to {{ url_for('shorten', _external=True ) }}:
-            <pre>curl -X POST {{ url_for('shorten', _external=True )|strip_www }} -F "url=http://example.com/kitty.gif"</pre>
+            <pre>curl -X POST {{ url_for('shorten', _external=True ) }} -F "url=http://example.com/kitty.gif"</pre>
         </p>
 
         <p>
