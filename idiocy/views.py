@@ -1,6 +1,5 @@
 from idiocy.app import app
 import os
-import re
 from flask import abort, \
                   redirect, \
                   render_template, \
@@ -8,7 +7,9 @@ from flask import abort, \
                   send_from_directory, \
                   url_for
 from idiocy.helpers import generate_code, \
-                           is_valid_url
+                           is_valid_url, \
+                           is_authenticated, \
+                           strip_file_extension
 from idiocy.database import db, \
                             Urls
 from idiocy.filters import strip_www
@@ -22,13 +23,13 @@ def shorten():
     if request.method == 'GET':
         return render_template('hello.html')
     else:
-        api_key = request.headers['Authorization'].strip()
-        if api_key != app.config['API_KEY']:
+        if not is_authenticated(app.config['API_KEY'], request.headers['Authorization']):
+            print "Invalid API key: (%s)" % request.headers['Authorization']
             abort(403)
 
         url = request.form['url'].strip()
-
         if not is_valid_url(url):
+            print "Invalid url: (%s)" % url
             abort(400)
 
         # Has this URL been previously stored?
@@ -43,23 +44,28 @@ def shorten():
 
         return strip_www(url_for('bounce', code=row.code, _external=True))
 
-@app.route('/<code>', methods=['GET'])
+@app.route('/<code>', methods=['GET', 'DELETE'])
 def bounce(code):
-    # Strip off any file extension
-    code = re.sub(r'\.[a-zA-Z0-9]{1,5}$', '', code)
-
+    code = strip_file_extension(code)
     row = db.session.query(Urls).\
                     filter(Urls.code == code).\
                     first()
 
     if not row:
+        print "URL not found: (%s)" % code
         abort(404)
 
-    row.clicks += 1
-    db.session.add(row)
-    db.session.commit()
+    if request.method == 'GET':
+        row.clicks += 1
+        db.session.add(row)
+        db.session.commit()
 
-    return redirect(row.url)
+        return redirect(row.url)
+    elif request.method == 'DELETE':
+        db.session.delete(row);
+        db.session.commit()
+
+        return strip_www(url_for('bounce', code=row.code, _external=True))
 
 @app.route('/list', methods=['GET'])
 def list():

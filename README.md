@@ -63,3 +63,8 @@ shortened URL:
 http://your-domain.com/oT0Dh.gif
 ```
 
+To remove a URL, simply DELETE it using its short URL:
+
+```bash
+curl -X DELETE http://your-domain.com/oT0Dh -H "Authorization: secret_api_key"
+```
