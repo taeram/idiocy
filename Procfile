@@ -1,1 +1,1 @@
-web: gunicorn idiocy:app
+web: gunicorn idiocy.app:app
