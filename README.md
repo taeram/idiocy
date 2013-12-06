@@ -52,9 +52,9 @@ The body of the response will contain the shortened URL:
 http://your-domain.com/oT0Dh
 ```
 
-Some services will generate image previews of image links if the link has the
-correct file extension. To enable this with a shortened link, simply add a file
-extension to the shortened URL:
+Some services will generate image previews of an image URL if it has the
+correct file extension. To enable this, simply add a file extension to the
+shortened URL:
 
 ```bash
 http://your-domain.com/oT0Dh.gif
