@@ -25,6 +25,14 @@ Setup
 
     # Promote your postgres database (your URL name may differ)
     heroku pg:promote HEROKU_POSTGRESQL_RED_URL
+    
+    # Push to Heroku
+    git push heroku master
+```
+
+Local development setup
+```bash
+    cd ./idiocy/
 
     # Setup and activate virtualenv
     virtualenv .venv
