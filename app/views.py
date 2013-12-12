@@ -1,4 +1,4 @@
-from idiocy.app import app
+from app import app
 import os
 from flask import abort, \
                   redirect, \
@@ -6,13 +6,13 @@ from flask import abort, \
                   request, \
                   send_from_directory, \
                   url_for
-from idiocy.helpers import generate_code, \
-                           is_valid_url, \
-                           is_authenticated, \
-                           strip_file_extension
-from idiocy.database import db, \
-                            Urls
-from idiocy.filters import strip_www
+from helpers import generate_code, \
+                    is_valid_url, \
+                    is_authenticated, \
+                    strip_file_extension
+from database import db, \
+                     Urls
+from filters import strip_www
 
 @app.route('/favicon.ico')
 def favicon():
@@ -22,23 +22,20 @@ def favicon():
 def shorten():
     if request.method == 'GET':
         return render_template('hello.html')
-    else:
-        if not is_authenticated(app.config['API_KEY'], request.headers['Authorization']):
-            print "Invalid API key: (%s)" % request.headers['Authorization']
-            abort(403)
+    elif request.method == 'POST':
+        if not is_authenticated():
+            return app.response_class(response='{"error": "Invalid API key"}', mimetype='application/json', status=403)
 
         url = request.form['url'].strip()
         if not is_valid_url(url):
-            print "Invalid url: (%s)" % url
-            abort(400)
+            return app.response_class(response='{"error": "Invalid URL"}', mimetype='application/json', status=403)
 
         # Has this URL been previously stored?
         row = db.session.query(Urls).\
                         filter(Urls.url == url).\
                         first()
         if not row:
-            code = generate_code()
-            row = Urls(url=url, code=code)
+            row = Urls(url=url, code=generate_code())
             db.session.add(row)
             db.session.commit()
 
@@ -52,15 +49,14 @@ def bounce(code):
                     first()
 
     if not row:
-        print "URL not found: (%s)" % code
         abort(404)
 
     if request.method == 'GET':
         row.clicks += 1
         db.session.add(row)
         db.session.commit()
-
         return redirect(row.url)
+
     elif request.method == 'DELETE':
         db.session.delete(row);
         db.session.commit()

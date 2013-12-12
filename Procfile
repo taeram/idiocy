@@ -1,1 +1,1 @@
-web: gunicorn idiocy.app:app
+web: python server.py

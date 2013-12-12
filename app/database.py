@@ -1,8 +1,28 @@
-from idiocy.app import app
+from app import app
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.script import Manager, prompt_bool
 from datetime import datetime
 
 db = SQLAlchemy(app)
+
+manager = Manager(usage="Manage the database")
+
+@manager.command
+def create():
+    "Create the database"
+    db.create_all()
+
+@manager.command
+def drop():
+    "Empty the database"
+    if prompt_bool("Are you sure you want to drop all tables from the database?"):
+        db.drop_all()
+
+@manager.command
+def recreate():
+    "Recreate the database"
+    drop()
+    create()
 
 class Urls(db.Model):
     __tablename__ = 'urls'
@@ -19,5 +39,3 @@ class Urls(db.Model):
 
     def __repr__(self):
         return "<Url ('%r', '%r')>" % (self.url, self.code)
-
-db.create_all()

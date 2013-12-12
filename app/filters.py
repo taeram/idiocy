@@ -1,4 +1,4 @@
-from idiocy.app import app
+from app import app
 import re
 
 @app.template_filter('strip_www')

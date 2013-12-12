@@ -36,6 +36,9 @@ Setup
     # Set an "API key" for authorization
     heroku config:set API_KEY="secret_api_key"
 
+    # Create the database
+    python manage.py database create
+
     # Start the application
     python app.py
 ```
