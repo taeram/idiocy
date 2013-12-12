@@ -52,6 +52,9 @@ Deploy to Heroku:
     # Set an "API key" for authorization
     heroku config:set API_KEY="secret_api_key"
 
+    # Set the flask environment
+    heroku config:set FLASK_ENV=production
+
     # Create the production database
     heroku run python manage.py database create
 
