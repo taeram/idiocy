@@ -7,31 +7,18 @@ Requirements
 ============
 You'll need the following:
 
-* A [Heroku](https://www.heroku.com/) account
+* A [Heroku](https://www.heroku.com/) account, if you want to deploy to Heroku.
 * [Python 2.7.3](http://www.python.org/)
 * [pip](https://github.com/pypa/pip)
 * [Virtualenv](https://github.com/pypa/virtualenv)
 
 Setup
 =====
+Local development setup:
 ```bash
     # Clone the repo
     git clone https://github.com/taeram/idiocy.git
-    cd ./idiocy/
 
-    # Create your Heroku app, and add a database addon
-    heroku apps:create
-    heroku addons:add heroku-postgresql
-
-    # Promote your postgres database (your URL name may differ)
-    heroku pg:promote HEROKU_POSTGRESQL_RED_URL
-    
-    # Push to Heroku
-    git push heroku master
-```
-
-Local development setup
-```bash
     cd ./idiocy/
 
     # Setup and activate virtualenv
@@ -41,14 +28,35 @@ Local development setup
     # Install the pip requirements
     pip install -r requirements.txt
 
+    # Create the development database (SQLite by default)
+    python manage.py database create
+
+    # Start the application, prefixing with the required environment variables
+    API_KEY="secret_api_key" python app.py
+```
+
+Deploy to Heroku:
+```bash
+    # Clone the repo
+    git clone https://github.com/taeram/idiocy.git
+
+    cd ./idiocy/
+
+    # Create your Heroku app, and add a database addon
+    heroku apps:create
+    heroku addons:add heroku-postgresql
+
+    # Promote your postgres database (your URL name may differ)
+    heroku pg:promote HEROKU_POSTGRESQL_RED_URL
+
     # Set an "API key" for authorization
     heroku config:set API_KEY="secret_api_key"
 
-    # Create the database
-    python manage.py database create
+    # Create the production database
+    heroku run python manage.py database create
 
-    # Start the application
-    python app.py
+    # Push to Heroku
+    git push heroku master
 ```
 
 Usage
