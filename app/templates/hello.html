@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% set has_jumbotron = true %}
+
+{% block title %}Hello!{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1>Idiocy</h1>
+        <a href="https://github.com/taeram/idiocy">Idiocy</a> is a Python powered
+        URL shortening service.
+    </div>
+
+    <div class="container">
+        <p>
+            To shorten a URL, just POST it to {{ url_for('shorten', _external=True ) }} using your API key:
+            <pre>curl -X POST {{ url_for('shorten', _external=True ) }} -H "Authorization: secret_api_key" -F "url=http://example.com/kitty.gif"</pre>
+        </p>
+
+        <p>
+            The body of the response will contain the shortened URL:
+            <pre>{{ url_for('bounce', code="oT0Dh", _external=True )|strip_www }}</pre>
+        </p>
+
+        <p>
+            Some services will generate image previews of an image URL if it
+            has the correct file extension. To enable this, simply add a file
+            extension to the shortened URL:
+
+            <pre>{{ url_for('bounce', code="oT0Dh.gif", _external=True )|strip_www }}</pre>
+        </p>
+    </div>
+
+    <div style="text-align: center">
+        <small>
+            Source available on
+            <a href="https://github.com/taeram/idiocy",target="_blank"><span class="fa fa-github-alt"></span> GitHub</a>
+        </small>
+    </div>
+{% endblock %}
