@@ -90,3 +90,7 @@ To remove a URL, simply DELETE it using its short URL:
 ```bash
 curl -X DELETE http://your-domain.com/oT0Dh -H "Authorization: secret_api_key"
 ```
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/taeram/idiocy/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
