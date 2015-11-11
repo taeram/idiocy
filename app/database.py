@@ -28,8 +28,8 @@ class Urls(db.Model):
     __tablename__ = 'urls'
 
     id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.Text, unique=True)
-    code = db.Column(db.Text, unique=True)
+    url = db.Column(db.VARCHAR(length=255), unique=True)
+    code = db.Column(db.VARCHAR(length=255), unique=True)
     clicks = db.Column(db.Integer, default=0)
     created = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
 
