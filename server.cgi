@@ -9,4 +9,12 @@ execfile(activate_this, dict(__file__=activate_this))
 import sys
 sys.path.insert(0, APP_DIR)
 
-from app import app as application
+# Manually pass variables set in Apache using SetEnv to Flask
+setenv_variables = ['API_KEY', 'DATABASE_URL']
+def application(environ, start_response):
+    for key in setenv_variables:
+        print "%s: %s" % (key, environ.get(key, 'Nope'))
+        os.environ[key] = environ.get(key, '')
+
+    from app import app as flask_application
+    return flask_application(environ, start_response)
