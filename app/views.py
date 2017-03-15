@@ -14,6 +14,12 @@ from database import db, \
                      Urls
 from filters import strip_www
 
+
+@app.route('/.well-known/acme-challenge/<filename>')
+def letsencrypt(filename):
+    return send_from_directory(os.path.join(app.root_path, '../.well-known/acme-challenge/'), filename)
+
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.png', mimetype='image/png')
