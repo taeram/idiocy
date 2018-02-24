@@ -24,7 +24,7 @@ def letsencrypt(filename):
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.png', mimetype='image/png')
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST', 'HEAD'])
 def shorten():
     if request.method == 'GET':
         return render_template('hello.html')
