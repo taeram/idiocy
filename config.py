@@ -1,17 +1,10 @@
 from os import getenv
 
 class Config(object):
-    DEBUG = False
-    TESTING = False
-    SQLALCHEMY_DATABASE_URI = getenv('DATABASE_URL', 'sqlite:///app.db')
-    STRIP_WWW_PREFIX = True
     API_KEY = getenv('API_KEY')
-
-class ProductionConfig(Config):
-    DEBUG = False
-
-class DevelopmentConfig(Config):
-    DEBUG = True
-
-class TestingConfig(Config):
-    TESTING = True
+    DEBUG = getenv('DEBUG', False)
+    SQLALCHEMY_DATABASE_URI = getenv('DATABASE_URL', 'sqlite:///' + path.dirname(__file__) + '/app/app.db').replace('mysql2:', 'mysql:')
+    SQLALCHEMY_ECHO = getenv('SQLALCHEMY_ECHO', False)
+    SQLALCHEMY_POOL_RECYCLE = 60
+    STRIP_WWW_PREFIX = True
+    TESTING = False

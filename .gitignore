@@ -1,54 +1,34 @@
 # Lets Encrypt
 .well-known
 
+# Project
+/app/static/js/**/*.js
+/app/static/js/.module-cache/
+/app/static/css/**/*.css
+/app/static/components/
+/app/static/.well-known/
+/logs/*.log
+/.env
+
+# Python
 *.py[cod]
-
-# C extensions
-*.so
-
-# Packages
-*.egg
-*.egg-info
-dist
-build
-eggs
-parts
-bin
-var
-sdist
-develop-eggs
-.installed.cfg
-lib
-lib64
-__pycache__
 
 # Installer logs
 pip-log.txt
-
-# Unit test / coverage reports
-.coverage
-.tox
-nosetests.xml
-
-# Translations
-*.mo
-
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
-
-# Virtualenv
-.venv
-.virtualenv
-
-# Test scripts
-test.sh
 
 # Vagrant
 .vagrant
 Vagrantfile
 
-# SQLite
-*.db
-*.db-journal
+# Node.js
+/node_modules/
+
+# Virtualenv
+/.virtualenv
+
+# Bower
+/app/static/components/
+/app/static/js/**/*.js
+
+# VirtualEnv
+.virtualenv
