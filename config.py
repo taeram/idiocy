@@ -1,4 +1,5 @@
-from os import getenv
+from os import getenv, \
+               path
 
 class Config(object):
     API_KEY = getenv('API_KEY')
