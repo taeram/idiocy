@@ -1,5 +1,5 @@
 from app import app
-from flask.ext.script import Manager
+from flask_script import Manager
 from app.database import manager as database_manager
 
 manager = Manager(app)

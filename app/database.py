@@ -1,6 +1,6 @@
 from app import app
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.script import Manager, prompt_bool
+from flask_sqlalchemy import SQLAlchemy
+from flask_script import Manager, prompt_bool
 from datetime import datetime
 
 db = SQLAlchemy(app)

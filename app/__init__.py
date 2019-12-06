@@ -2,8 +2,8 @@ import os
 from flask import Flask
 
 # Set the locale
-import locale
-locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+#import locale
+#locale.setlocale(locale.LC_ALL, 'en_US.UTF-8	')
 
 app = Flask(__name__)
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
@@ -19,5 +19,5 @@ app.logger.addHandler(log_handler)
 app.config.from_object('config.Config')
 app.debug = app.config['DEBUG']
 
-import views
-import filters
+from . import views
+from . import filters

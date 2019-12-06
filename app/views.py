@@ -6,13 +6,13 @@ from flask import abort, \
                   request, \
                   send_from_directory, \
                   url_for
-from helpers import generate_code, \
+from .helpers import generate_code, \
                     is_valid_url, \
                     is_authenticated, \
                     strip_file_extension
-from database import db, \
+from .database import db, \
                      Urls
-from filters import strip_www
+from .filters import strip_www
 
 
 @app.route('/favicon.ico')
