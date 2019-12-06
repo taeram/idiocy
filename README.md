@@ -7,8 +7,7 @@ Requirements
 ============
 You'll need the following:
 
-* A [Heroku](https://www.heroku.com/) account, if you want to deploy to Heroku.
-* [Python 2.7.3](http://www.python.org/)
+* [Python 3](http://www.python.org/)
 * [pip](https://github.com/pypa/pip)
 * [Virtualenv](https://github.com/pypa/virtualenv)
 
@@ -32,34 +31,7 @@ Local development setup:
     python manage.py database create
 
     # Start the application, prefixing with the required environment variables
-    API_KEY="secret_api_key" python app.py
-```
-
-Deploy to Heroku:
-```bash
-    # Clone the repo
-    git clone https://github.com/taeram/idiocy.git
-
-    cd ./idiocy/
-
-    # Create your Heroku app, and add a database addon
-    heroku apps:create
-    heroku addons:add heroku-postgresql
-
-    # Promote your postgres database (your URL name may differ)
-    heroku pg:promote HEROKU_POSTGRESQL_RED_URL
-
-    # Set an "API key" for authorization
-    heroku config:set API_KEY="secret_api_key"
-
-    # Set the flask environment
-    heroku config:set FLASK_ENV=production
-
-    # Create the production database
-    heroku run python manage.py database create
-
-    # Push to Heroku
-    git push heroku master
+    API_KEY="secret_api_key" python main.py
 ```
 
 Usage
